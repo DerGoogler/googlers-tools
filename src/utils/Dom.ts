@@ -1,4 +1,6 @@
-import React from "react";
+import React, { RefObject, ReactNode, DOMElement } from "react";
+import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 namespace Dom {
   /**
@@ -27,7 +29,7 @@ namespace Dom {
         }
       }
     } else {
-      var reff: React.RefObject<Object>;
+      var reff: RefObject<Object>;
       if ((reff = id)) {
         if (reff && reff.current) {
           if (typeof callback == "function") {
@@ -38,6 +40,42 @@ namespace Dom {
         }
       }
     }
+  }
+
+  /**
+   * New React DOM render method. Requires React 18+
+   * @param component
+   * @param element
+   */
+  export function render(component: ReactNode, element: string) {
+    const app = document.createElement(element);
+    document.body.prepend(app);
+    const container = document.querySelector<Element>(element);
+    const root = createRoot(container!);
+    root.render(component);
+  }
+
+  /**
+   * React DOM legacy render method
+   * @param component
+   * @param element
+   * @param callback
+   */
+  export function renderLegacy(component: DOMElement<React.DOMAttributes<Element>, Element>, element: string, callback?: () => void) {
+    ReactDOM.render(component, document.querySelector<Element>(element), callback);
+  }
+
+  /**
+   * Prevents event listener
+   * @param prevents {Array<string>} `["contextmenu", "mousedown"]`
+   */
+  export function preventer(prevents: Array<string>): void {
+    prevents.map(item => {
+      window.addEventListener(item, (e: Event) => {
+        e.preventDefault();
+        console.info(`${item} is prevented from using`);
+      });
+    });
   }
 }
 
