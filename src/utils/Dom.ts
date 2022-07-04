@@ -9,18 +9,21 @@ namespace Dom {
    * Usage
    * ```ts
    * // Id's
-   * tools.findBy("element", (element: HTMLElement) => { element.style.display = "none" })
+   * Dom.findBy("element", (element: HTMLElement) => { element.style.display = "none" })
    *
    * // Refs
-   * tools.findBy(this.myRef, (ref: HTMLElement) => { ref.style.display = "none" })
+   * Dom.findBy(this.myRef, (ref: HTMLElement) => { ref.style.display = "none" })
    * ```
    */
-  export function findBy<Object = any>(id: string | React.RefObject<Object>, callback: (...props: any) => void) {
+  // @ts-ignore --> Not all code paths return a value.ts(7030)
+  export function findBy<Object = any>(id: string | React.RefObject<Object>, callback: (...props: any) => void): Object | HTMLElement | React.RefObject<Object> | undefined {
     if (typeof id == "string") {
       var element: HTMLElement | null;
       if ((element = document.getElementById(id))) {
         if (typeof callback == "function") {
           callback(element);
+        } else {
+          return element;
         }
       }
     } else {
@@ -29,6 +32,8 @@ namespace Dom {
         if (reff && reff.current) {
           if (typeof callback == "function") {
             callback(reff.current);
+          } else {
+            return reff.current;
           }
         }
       }
