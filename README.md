@@ -1,38 +1,11 @@
-# Bota64
+# Googlers Tools
 
-Simple string encryption
+Some samples
 
-## Installing
+```ts
+import { Link } from "googlers-tools";
 
-```
-npm install bota64 --save
-```
-
-# Usage
-
-Encode
-
-```js
-import { Bota64 } from "bota64";
-
-const bo = new Bota64();
-console.log(bo.encode("Hello World!")); // => 𐑼𑫄𑫋𑫋𑫎𑁈𐓓𑫎𑫑𑫋𑫃᜵
-```
-
-Decode
-
-```js
-import { Bota64 } from "bota64";
-
-const bo = new Bota64();
-console.log(bo.decode("𐑼𑫄𑫋𑫋𑫎𑁈𐓓𑫎𑫑𑫋𑫃᜵")); // => Hello World!
-```
-
-## With base64
-
-```js
-import { Bota64 } from "bota64";
-
-const bo = new Bota64({ withBase64: true });
-// ...
+// You want get https://example.com/data.json on http://127.0.0.1:8080/data.json?
+const path = Link.getSubPath("data.json");
+console.log(path); // >> http://example.com/data.json or http://127.0.0.1:8080/data.json
 ```

@@ -35,7 +35,7 @@ namespace Link {
    * @param url Your url
    * @returns {string} Given subpath
    */
-  export function getSubPath(url: string) {
+  export function getSubPath(url: string): string {
     return window.location.href.replace(/(\?(.*?)=(.*)|\?)/gm, "") + url;
   }
 }
