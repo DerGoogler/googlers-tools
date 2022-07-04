@@ -1,6 +1,6 @@
 {
   "name": "googlers-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "My own tools / scripts that i use.",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
