@@ -1,0 +1,38 @@
+{
+  "name": "googlers-tools",
+  "version": "1.0.0",
+  "description": "My own tools / scripts that i use.",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/esm/index.d.ts",
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs"
+  },
+  "keywords": [
+    "dg",
+    "tools",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DerGoogler/googlers-tools"
+  },
+  "author": "Der_Googler <jimmyboehm@dergoogler.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DerGoogler/googlers-tools/issues"
+  },
+  "homepage": "https://github.com/DerGoogler/googlers-tools",
+  "files": [
+    "/lib"
+  ],
+  "devDependencies": {
+    "@types/react": "^18.0.14",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}
