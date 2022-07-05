@@ -1,8 +1,11 @@
 import React, { RefObject, ReactNode, DOMElement } from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
+import InternalLogger from "../internal/Logger";
 
 namespace Dom {
+  export const Logger: typeof InternalLogger = InternalLogger;
+
   /**
    * @param id Given element or ref
    * @param callback HTMLElement or React.RefObject
