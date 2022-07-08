@@ -7,7 +7,7 @@ interface ILoggerStatic<T = string> {
 }
 
 class InternalLogger {
-  private tag: string;
+  public tag: string;
   public constructor(tag: string) {
     this.tag = tag;
   }

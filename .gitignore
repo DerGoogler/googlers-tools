@@ -7,6 +7,11 @@ node_modules/
 cdn_modules/
 *.log
 
+# --
+node_modules/
+node_modules.bun
+cdn_modules/
+
 # OS generated files
 .DS_Store
 .DS_Store?
