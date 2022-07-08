@@ -1,6 +1,6 @@
 {
   "name": "googlers-tools",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "My own tools / scripts that i use.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -30,7 +30,7 @@
     "url": "https://github.com/DerGoogler/googlers-tools"
   },
   "author": "Der_Googler <jimmyboehm@dergoogler.com>",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/DerGoogler/googlers-tools/issues"
   },
