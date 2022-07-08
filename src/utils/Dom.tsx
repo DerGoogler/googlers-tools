@@ -1,4 +1,4 @@
-import React, { RefObject, ReactNode, DOMElement } from "react";
+import React, { RefObject, ReactNode, DOMElement, ComponentClass } from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 import InternalLogger from "../internal/Logger";
@@ -56,6 +56,18 @@ namespace Dom {
     const container = document.querySelector<Element>(element);
     const root = createRoot(container!);
     root.render(component);
+  }
+
+  /**
+   * React DOM render method to render the DOM and root element automatically. Requires React 18+ and an component with call syntax.
+   * @param InitComponent {ComponentClass} Uses the given component to render the DOM and the required HTML root element
+   */
+  export function renderAuto(InitComponent: ComponentClass) {
+    const app = document.createElement(InitComponent.displayName!);
+    document.body.prepend(app);
+    const container = document.querySelector<Element>(InitComponent.displayName!);
+    const root = createRoot(container!);
+    root.render(<InitComponent />);
   }
 
   /**
