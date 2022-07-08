@@ -1,0 +1,4 @@
+
+[submodule "tools.ts"]
+	path = src/utils/tools.ts
+	url = https://github.com/DerGoogler/googlers-tools.git
