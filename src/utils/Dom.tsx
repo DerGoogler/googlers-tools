@@ -1,7 +1,7 @@
 import React, { RefObject, ReactNode, DOMElement, ComponentClass } from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
-import InternalLogger from "../internal/Logger";
+import InternalLogger from "./Logger";
 
 namespace Dom {
   export const Logger: typeof InternalLogger = InternalLogger;
@@ -91,6 +91,23 @@ namespace Dom {
         console.info(`${item} is prevented from using`);
       });
     });
+  }
+
+  /**
+   * @usage
+   * ```ts
+   * permission("clipboard-write").then((pm: PermissionStatus) => {
+   *   console.log(pm.state)
+   * });
+   * ```
+   * @param permission
+   * @returns
+   */
+  export async function permission(permission: string): Promise<PermissionStatus> {
+    const permissionName = permission as PermissionName;
+    const permissionStatus = await navigator.permissions.query({ name: permissionName });
+    // Will be 'granted', 'denied' or 'prompt':
+    return permissionStatus;
   }
 }
 

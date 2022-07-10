@@ -26,11 +26,36 @@ Link.setURL((set, currentPath) => {
 import { Dom as dom } from "googlers-tools";
 
 // Renders the component completely automatically and creating the root element from the display name (Requires React 18+)
-dom.renderAuto(<App />);
+dom.renderAuto(App);
 
 // Renders the component in the pre created <app></app> tag (Requires React 18+)
 dom.render(<App />, "app");
 
 // Renders the component in the pre created <app></app> tag
 dom.renderLegacy(<App />, "app");
+```
+
+## BSON Usage
+
+```tsx
+import { BSON, Logger, ILogger } from "googlers-tools";
+
+const log: ILogger = new Logger("Encoder");
+
+const content = {
+  lool: "ff",
+  hahah: "cool",
+  version: {
+    app: "1.1.0",
+    lib: "1.0.5",
+  },
+};
+
+const e = new BSON(content).encode();
+const d = new BSON(e).decode();
+
+log.info(<div>
+  <span>Encoded: {e}</span><br />
+  <span>Decoded: {d}</span>
+</div>)
 ```

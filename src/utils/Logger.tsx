@@ -1,12 +1,37 @@
 import React from "react";
 import console from "react-console";
+import Util from "./Util";
 
-interface ILoggerStatic<T = string> {
+export interface ILoggerStaticReturn<T = string> {
   tag: string;
   message: T;
 }
 
-class InternalLogger {
+export interface ILogger {
+  render<T = string>(root: T, context: Console, method: string): void | T;
+  warn<T = string>(message: T): void | T;
+  error<T = string>(message: T): void | T;
+  debug<T = string>(message: T): void | T;
+  info<T = string>(message: T): void | T;
+  group<T = string>(message: T): void | T;
+  groupCollapsed<T = string>(message: T): void | T;
+  trace<T = string>(message: T): void | T;
+}
+
+export interface ILoggerStatic {
+  new (tag: string): ILogger;
+  render<T = string>(tag: string, root: T, context: Console, method: string): void | ILoggerStaticReturn<T>;
+  warn<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
+  error<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
+  debug<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
+  info<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
+  group<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
+  groupCollapsed<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
+  trace<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
+}
+
+@Util.ImplementsStatics<ILoggerStatic>()
+class LoggerCore {
   public tag: string;
   public constructor(tag: string) {
     this.tag = tag;
@@ -105,72 +130,72 @@ class InternalLogger {
     return message;
   }
 
-  public static render<T = string>(tag: string, root: T, context: Console, method: string = "log"): void | ILoggerStatic<T> {
-    new InternalLogger(tag).render<T>(root, context, method);
+  public static render<T = string>(tag: string, root: T, context: Console, method: string = "log"): void | ILoggerStaticReturn<T> {
+    new LoggerCore(tag).render<T>(root, context, method);
     return {
       tag: tag,
       message: root,
     };
   }
 
-  public static log<T = string>(tag: string, message: T): void | ILoggerStatic<T> {
-    new InternalLogger(tag).log<T>(message);
+  public static log<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+    new LoggerCore(tag).log<T>(message);
     return {
       tag: tag,
       message: message,
     };
   }
 
-  public static warn<T = string>(tag: string, message: T): void | ILoggerStatic<T> {
-    new InternalLogger(tag).warn<T>(message);
+  public static warn<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+    new LoggerCore(tag).warn<T>(message);
     return {
       tag: tag,
       message: message,
     };
   }
 
-  public static error<T = string>(tag: string, message: T): void | ILoggerStatic<T> {
-    new InternalLogger(tag).error<T>(message);
+  public static error<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+    new LoggerCore(tag).error<T>(message);
     return {
       tag: tag,
       message: message,
     };
   }
 
-  public static debug<T = string>(tag: string, message: T): void | ILoggerStatic<T> {
-    new InternalLogger(tag).debug<T>(message);
+  public static debug<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+    new LoggerCore(tag).debug<T>(message);
     return {
       tag: tag,
       message: message,
     };
   }
 
-  public static info<T = string>(tag: string, message: T): void | ILoggerStatic<T> {
-    new InternalLogger(tag).info<T>(message);
+  public static info<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+    new LoggerCore(tag).info<T>(message);
     return {
       tag: tag,
       message: message,
     };
   }
 
-  public static group<T = string>(tag: string, message: T): void | ILoggerStatic<T> {
-    new InternalLogger(tag).group<T>(message);
+  public static group<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+    new LoggerCore(tag).group<T>(message);
     return {
       tag: tag,
       message: message,
     };
   }
 
-  public static groupCollapsed<T = string>(tag: string, message: T): void | ILoggerStatic<T> {
-    new InternalLogger(tag).groupCollapsed<T>(message);
+  public static groupCollapsed<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+    new LoggerCore(tag).groupCollapsed<T>(message);
     return {
       tag: tag,
       message: message,
     };
   }
 
-  public static trace<T = string>(tag: string, message: T): void | ILoggerStatic<T> {
-    new InternalLogger(tag).trace<T>(message);
+  public static trace<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+    new LoggerCore(tag).trace<T>(message);
     return {
       tag: tag,
       message: message,
@@ -178,4 +203,5 @@ class InternalLogger {
   }
 }
 
-export default InternalLogger;
+const Logger: ILoggerStatic = LoggerCore;
+export default Logger;

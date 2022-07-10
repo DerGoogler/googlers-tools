@@ -44,6 +44,15 @@ namespace Util {
       return false;
     }
   }
+
+  /**
+   * Used as an class decorator
+   */
+  export function ImplementsStatics<T>() {
+    return <U extends T>(constructor: U) => {
+      constructor;
+    };
+  }
 }
 
 export default Util;
