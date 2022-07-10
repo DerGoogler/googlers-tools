@@ -1,4 +1,4 @@
-import Util from "./Util";
+import util from "./Util";
 
 interface IBSONCore {
   encode(): string;
@@ -11,7 +11,7 @@ interface IBSONCoreStatic {
   isJsonString(str: any): boolean;
 }
 
-@Util.ImplementsStatics<IBSONCoreStatic>()
+@util.ImplementsStatics<IBSONCoreStatic>()
 class BSONCore {
   private value: string;
 
