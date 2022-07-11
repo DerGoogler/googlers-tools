@@ -3,6 +3,7 @@ import link from "./utils/Link";
 import util from "./utils/Util";
 import BSON from "./utils/BSON";
 import Logger, { ILogger, ILoggerStatic, ILoggerStaticReturn } from "./utils/Logger";
+import SharedPreferences from "./utils/SharedPreferences";
 
 // Main
 export { util, dom, link };
@@ -11,4 +12,4 @@ export { util, dom, link };
 export { Logger, ILogger, ILoggerStatic, ILoggerStaticReturn };
 
 // Others
-export { BSON };
+export { BSON, SharedPreferences };
