@@ -112,11 +112,9 @@ class SharedPreferences implements ISharedPreferences {
     this.webStorage.clear();
   }
 
-  [name: string]: any;
-
   // Statics
 
-  private static s: ISharedPreferences = new this();
+  private static s: ISharedPreferences = new SharedPreferences();
 
   public static setString(key: string, value: string): void {
     this.s.setString(key, value);
@@ -191,8 +189,6 @@ class SharedPreferences implements ISharedPreferences {
   public static clearPrefs(): void {
     this.s.clearPrefs();
   }
-
-  static [name: string]: any;
 }
 
 export default SharedPreferences;
