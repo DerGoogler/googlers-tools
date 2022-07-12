@@ -1,6 +1,6 @@
-import dom from "./utils/Dom";
-import link from "./utils/Link";
-import util from "./utils/Util";
+import dom from "./dom";
+import link from "./link";
+import util from "./util";
 import BSON from "./utils/BSON";
 import Logger, { ILogger, ILoggerStatic, ILoggerStaticReturn } from "./utils/Logger";
 import SharedPreferences, { ISharedPreferences } from "./utils/SharedPreferences";

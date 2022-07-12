@@ -1,4 +1,4 @@
-import util from "./Util";
+import util from "../util";
 
 export interface ISharedPreferences {
   setString(key: string, value: string): void;

@@ -1,6 +1,6 @@
 import React from "react";
 import console from "react-console";
-import Util from "./Util";
+import Util from "../util";
 
 export interface ILoggerStaticReturn<T = string> {
   tag: string;
