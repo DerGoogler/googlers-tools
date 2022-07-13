@@ -1,15 +1,6 @@
-import dom from "./dom";
-import link from "./link";
-import util from "./util";
-import BSON from "./utils/BSON";
-import Logger, { ILogger, ILoggerStatic, ILoggerStaticReturn } from "./utils/Logger";
-import SharedPreferences, { ISharedPreferences } from "./utils/SharedPreferences";
-
-// Main
-export { util, dom, link };
-
-// Logger
-export { Logger, ILogger, ILoggerStatic, ILoggerStaticReturn };
-
-// Others
-export { BSON, SharedPreferences, ISharedPreferences };
+export * from './lib/dom';
+export * from './lib/link';
+export * from './lib/util';
+export * from './lib/utils/BSON';
+export * from './lib/utils/Logger';
+export * from './lib/utils/SharedPreferences';

@@ -1,6 +1,5 @@
-import React from "react";
-import console from "react-console";
-import Util from "../util";
+import React from 'react';
+import console from 'react-console';
 
 export interface ILoggerStaticReturn<T = string> {
   tag: string;
@@ -20,24 +19,35 @@ export interface ILogger {
 
 export interface ILoggerStatic {
   new (tag: string): ILogger;
-  render<T = string>(tag: string, root: T, context: Console, method: string): void | ILoggerStaticReturn<T>;
+  render<T = string>(
+    tag: string,
+    root: T,
+    context: Console,
+    method: string
+  ): void | ILoggerStaticReturn<T>;
   warn<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
   error<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
   debug<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
   info<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
   group<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
-  groupCollapsed<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
+  groupCollapsed<T = string>(
+    tag: string,
+    message: T
+  ): void | ILoggerStaticReturn<T>;
   trace<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T>;
 }
 
-@Util.ImplementsStatics<ILoggerStatic>()
 class LoggerCore {
   public tag: string;
   public constructor(tag: string) {
     this.tag = tag;
   }
 
-  public render<T = string>(root: T, context: Console, method: string = "log"): void | T {
+  public render<T = string>(
+    root: T,
+    context: Console,
+    method: string = 'log'
+  ): void | T {
     console.render<T>(root, context, method);
     return root;
   }
@@ -46,7 +56,7 @@ class LoggerCore {
     console.log<T>(
       //@ts-ignore
       <div>
-        <strong style={{ color: "#0693e3" }}>{`[${this.tag}] `}</strong>
+        <strong style={{ color: '#0693e3' }}>{`[${this.tag}] `}</strong>
         {message}
       </div>
     );
@@ -57,7 +67,7 @@ class LoggerCore {
     console.warn<T>(
       //@ts-ignore
       <div>
-        <strong style={{ color: "orange" }}>{`[${this.tag}] `}</strong>
+        <strong style={{ color: 'orange' }}>{`[${this.tag}] `}</strong>
         {message}
       </div>
     );
@@ -68,7 +78,7 @@ class LoggerCore {
     console.error<T>(
       //@ts-ignore
       <div>
-        <strong style={{ color: "#d44950" }}>{`[${this.tag}] `}</strong>
+        <strong style={{ color: '#d44950' }}>{`[${this.tag}] `}</strong>
         {message}
       </div>
     );
@@ -130,7 +140,12 @@ class LoggerCore {
     return message;
   }
 
-  public static render<T = string>(tag: string, root: T, context: Console, method: string = "log"): void | ILoggerStaticReturn<T> {
+  public static render<T = string>(
+    tag: string,
+    root: T,
+    context: Console,
+    method: string = 'log'
+  ): void | ILoggerStaticReturn<T> {
     new LoggerCore(tag).render<T>(root, context, method);
     return {
       tag: tag,
@@ -138,7 +153,10 @@ class LoggerCore {
     };
   }
 
-  public static log<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+  public static log<T = string>(
+    tag: string,
+    message: T
+  ): void | ILoggerStaticReturn<T> {
     new LoggerCore(tag).log<T>(message);
     return {
       tag: tag,
@@ -146,7 +164,10 @@ class LoggerCore {
     };
   }
 
-  public static warn<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+  public static warn<T = string>(
+    tag: string,
+    message: T
+  ): void | ILoggerStaticReturn<T> {
     new LoggerCore(tag).warn<T>(message);
     return {
       tag: tag,
@@ -154,7 +175,10 @@ class LoggerCore {
     };
   }
 
-  public static error<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+  public static error<T = string>(
+    tag: string,
+    message: T
+  ): void | ILoggerStaticReturn<T> {
     new LoggerCore(tag).error<T>(message);
     return {
       tag: tag,
@@ -162,7 +186,10 @@ class LoggerCore {
     };
   }
 
-  public static debug<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+  public static debug<T = string>(
+    tag: string,
+    message: T
+  ): void | ILoggerStaticReturn<T> {
     new LoggerCore(tag).debug<T>(message);
     return {
       tag: tag,
@@ -170,7 +197,10 @@ class LoggerCore {
     };
   }
 
-  public static info<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+  public static info<T = string>(
+    tag: string,
+    message: T
+  ): void | ILoggerStaticReturn<T> {
     new LoggerCore(tag).info<T>(message);
     return {
       tag: tag,
@@ -178,7 +208,10 @@ class LoggerCore {
     };
   }
 
-  public static group<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+  public static group<T = string>(
+    tag: string,
+    message: T
+  ): void | ILoggerStaticReturn<T> {
     new LoggerCore(tag).group<T>(message);
     return {
       tag: tag,
@@ -186,7 +219,10 @@ class LoggerCore {
     };
   }
 
-  public static groupCollapsed<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+  public static groupCollapsed<T = string>(
+    tag: string,
+    message: T
+  ): void | ILoggerStaticReturn<T> {
     new LoggerCore(tag).groupCollapsed<T>(message);
     return {
       tag: tag,
@@ -194,7 +230,10 @@ class LoggerCore {
     };
   }
 
-  public static trace<T = string>(tag: string, message: T): void | ILoggerStaticReturn<T> {
+  public static trace<T = string>(
+    tag: string,
+    message: T
+  ): void | ILoggerStaticReturn<T> {
     new LoggerCore(tag).trace<T>(message);
     return {
       tag: tag,
