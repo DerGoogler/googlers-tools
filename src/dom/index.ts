@@ -5,10 +5,6 @@ import render from "./render";
 import renderAuto from "./renderAuto";
 import renderLegacy from "./renderLegacy";
 
-// --
-import HTMLComponent, { HTMLTypes } from "./HTMLComponent";
-// --
-
 const dom = {
   findBy,
   permission,
@@ -16,10 +12,7 @@ const dom = {
   render,
   renderAuto,
   renderLegacy,
-  r: {
-    HTMLComponent,
-  },
 };
 
-export { findBy, permission, preventer, render, renderAuto, renderLegacy, HTMLComponent, HTMLTypes };
+export { findBy, permission, preventer, render, renderAuto, renderLegacy };
 export default dom;

@@ -11,5 +11,4 @@ export { util, dom, link };
 // Logger
 export { Logger, ILogger, ILoggerStatic, ILoggerStaticReturn };
 
-// Others
 export { BSON, SharedPreferences, ISharedPreferences };
