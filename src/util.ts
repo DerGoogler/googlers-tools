@@ -12,6 +12,10 @@ interface UtilTypes {
    * @returns {R}
    */
   readonly typeCheck: <R extends any = any>(toCheck: R, defValue: R) => R;
+  /**
+   * Marks an class method as deprecated
+   */
+  readonly deprecated: (deprecationReason: string) => any;
 }
 
 type util = typeof util[keyof typeof util];
@@ -52,6 +56,25 @@ const util: UtilTypes = {
     } else {
       return toCheck;
     }
+  },
+  deprecated: (deprecationReason: string) => {
+    return (target: any, memberName: string, propertyDescriptor: PropertyDescriptor) => {
+      return {
+        get() {
+          const wrapperFn = (...args: any[]) => {
+            console.warn(`Method ${memberName} is deprecated with reason: ${deprecationReason}`);
+            propertyDescriptor.value.apply(this, args);
+          };
+
+          Object.defineProperty(this, memberName, {
+            value: wrapperFn,
+            configurable: true,
+            writable: true,
+          });
+          return wrapperFn;
+        },
+      };
+    };
   },
 } as const;
 
