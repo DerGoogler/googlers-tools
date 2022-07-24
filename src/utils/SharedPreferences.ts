@@ -1,5 +1,8 @@
 import util from "../util";
 
+/**
+ * @deprecated Please migrate to  `npm install web-shared-preferences`
+ */
 export interface ISharedPreferences {
   setString(key: string, value: string): void;
   setBoolean(key: string, value: boolean): void;
@@ -13,6 +16,7 @@ export interface ISharedPreferences {
 
 /**
  * Simple class to manage the web local sotrage and the Android native preferences
+ * @deprecated Please migrate to `npm install web-shared-preferences`
  */
 class SharedPreferences implements ISharedPreferences {
   private webStorage: Storage;

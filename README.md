@@ -1,5 +1,9 @@
 # Googlers Tools
 
+## NOTE
+
+`SharedPreferences` is now deprecated. Please use Web SharedPreferences (`npm install web-shared-preferences`)
+
 Some samples
 
 ```ts
@@ -54,8 +58,11 @@ const content = {
 const e = new BSON(content).encode();
 const d = new BSON(e).decode();
 
-log.info(<div>
-  <span>Encoded: {e}</span><br />
-  <span>Decoded: {d}</span>
-</div>)
+log.info(
+  <div>
+    <span>Encoded: {e}</span>
+    <br />
+    <span>Decoded: {d}</span>
+  </div>
+);
 ```
