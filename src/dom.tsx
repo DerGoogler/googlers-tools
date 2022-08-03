@@ -44,7 +44,7 @@ interface DomTypes {
    * React DOM render method to render the DOM and root element automatically. Requires React 18+ and an component with call syntax.
    * @param InitComponent {ComponentClass} Uses the given component to render the DOM and the required HTML root element
    */
-  readonly renderAuto: (InitComponent: React.ElementType) => void;
+  readonly renderAuto: <P = {}>(InitComponent: React.ElementType, props?: P) => void;
 
   /**
    * React DOM legacy render method
