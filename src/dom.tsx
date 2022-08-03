@@ -78,12 +78,12 @@ const dom: DomTypes = {
     const root = createRoot(container!);
     root.render(component);
   },
-  renderAuto: (InitComponent: React.ElementType): void => {
+  renderAuto: function<P = {}>(InitComponent: React.ElementType, props?: P): void {
     const app = document.createElement(InitComponent.constructor.name!);
     document.body.prepend(app);
     const container = document.querySelector<Element>(InitComponent.constructor.name!);
     const root = createRoot(container!);
-    root.render(<InitComponent />);
+    root.render(<InitComponent {...props} />);
   },
 
   renderLegacy: (component: React.DOMElement<React.DOMAttributes<Element>, Element>, element: string, callback?: () => void): void => {
