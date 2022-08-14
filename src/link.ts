@@ -1,27 +1,32 @@
-interface LinkTypes {
-  /**
-   * Retuns the given subpath from the current url
-   * @param url Your url
-   * @returns {string} Given subpath
-   */
-  readonly getSubPath: (url: string) => string;
-  readonly parseURLParams: (url: string) => string[] | undefined;
-  readonly request: <T = any>(url: string, callback: (status: XMLHttpRequest["status"], data: T) => void) => void;
-  /**
-   * Sets an custom fake path to the current url
-   * @param callback
-   */
-  readonly setURL: (callback: (set: (data?: any, unused?: string, url?: string | URL | null | undefined) => void, currentPath?: string | undefined) => void) => void;
-  /**
-   * Checks if an string link is valid
-   * @param input string
-   * @returns {boolean} boolean
-   */
-  readonly validURL: (input: string) => boolean;
+/**
+ * Typing for Link/link
+ */
+namespace Link {
+  export interface Types {
+    /**
+     * Retuns the given subpath from the current url
+     * @param url Your url
+     * @returns {string} Given subpath
+     */
+    readonly getSubPath: (url: string) => string;
+    readonly parseURLParams: (url: string) => string[] | undefined;
+    readonly request: <T = any>(url: string, callback: (status: XMLHttpRequest["status"], data: T) => void) => void;
+    /**
+     * Sets an custom fake path to the current url
+     * @param callback
+     */
+    readonly setURL: (callback: (set: (data?: any, unused?: string, url?: string | URL | null | undefined) => void, currentPath?: string | undefined) => void) => void;
+    /**
+     * Checks if an string link is valid
+     * @param input string
+     * @returns {boolean} boolean
+     */
+    readonly validURL: (input: string) => boolean;
+  }
 }
 
 type link = typeof link[keyof typeof link];
-const link: LinkTypes = {
+const link: Link.Types = {
   getSubPath: (url: string): string => {
     return window.location.href.replace(/(\?(.*?)=(.*)|\?)/gm, "") + url;
   },
@@ -84,4 +89,4 @@ const link: LinkTypes = {
   },
 } as const;
 
-export default link;
+export { Link, link };

@@ -1,6 +1,6 @@
 {
   "name": "googlers-tools",
-  "version": "1.3.3",
+  "version": "1.4.1",
   "description": "My own tools / scripts that I use.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -10,7 +10,8 @@
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build",
+    "web:dev": "webpack --config webpack.config.js"
   },
   "husky": {
     "hooks": {
@@ -37,15 +38,13 @@
   "homepage": "https://github.com/DerGoogler/googlers-tools",
   "dependencies": {
     "react": "^18.2.0",
-    "react-console": "^1.0.0-rc.2",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.14",
-    "@types/react-dom": "^18.0.5",
-    "@types/react-is": "^17.0.3",
-    "@types/react-reconciler": "^0.28.0",
+    "@types/react-dom": "^18.0.6",
     "rollup-plugin-postcss": "^4.0.2",
+    "ts-loader": "^9.3.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
