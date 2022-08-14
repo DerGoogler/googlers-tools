@@ -51,7 +51,7 @@ rct.render(<App />, "app");
 rct.renderLegacy(<App />, "app");
 ```
 
-## Rct/rct
+## Print/print
 
 `console` wrapper. This feature is experimental!
 
