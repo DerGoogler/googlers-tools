@@ -28,14 +28,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/DerGoogler/googlers-tools"
+    "url": "https://dergoogler.com/Der_Googler/googlers-tools"
   },
   "author": "Der_Googler <jimmyboehm@dergoogler.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/DerGoogler/googlers-tools/issues"
+    "url": "https://dergoogler.com/Der_Googler/googlers-tools/issues"
   },
-  "homepage": "https://github.com/DerGoogler/googlers-tools",
+  "homepage": "https://dergoogler.com/Der_Googler/googlers-tools",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
