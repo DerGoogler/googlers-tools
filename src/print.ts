@@ -34,26 +34,6 @@ namespace Print {
  * };
  *
  * print.error(self => (self.stringify(test, null, 4)));
- *
- * // For colors in browsers
- * print.log((self, css) =>
- *   self.format(
- *     "{0}Hello world!",
- *     css({
- *       width: "1px",
- *       height: "1px",
- *       backgroundColor: "red",
- *       transform: "rotateZ(45deg)",
- *     })
- *   )
- * );
- *
- *
- * // For colors in Node.js
- * print.log(self => {
- *   const text = "Hello world!";
- *   return self.format("\x1b[36m{0}\x1b[0m", text);
- * });
  * ```
  * ----
  */

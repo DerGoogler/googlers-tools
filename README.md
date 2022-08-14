@@ -1,68 +1,94 @@
-# Googlers Tools
+# Googler's Tools
 
-## NOTE
+My own tools / scripts that I use.
 
-`SharedPreferences` is now deprecated. Please use Web SharedPreferences (`npm install web-shared-preferences`)
+## Link/link
 
-Some samples
+Tools to manage URLs
+
+### Typing
+
+- `Link` - namespace
+- `link` - constants
 
 ```ts
-import { Link } from "googlers-tools";
+import { link, Link } from "googlers-tools";
 
 // You want get https://example.com/data.json on http://127.0.0.1:8080/data.json?
-const path = Link.getSubPath("data.json");
+const path = link.getSubPath("data.json");
 console.log(path); // >> http://example.com/data.json or http://127.0.0.1:8080/data.json
-```
 
-## Set fake url
-
-```ts
-import { Link } from "googlers-tools";
-
-Link.setURL((set, currentPath) => {
+// Experimental
+link.setURL((set, currentPath) => {
   set(`view_${props.id}`, `view_${props.id}`, `${currentPath}/?module=${props.id}`);
 });
 ```
 
-## Using React render methods
+## Rct/rct
+
+Tools to manage some parts of React
+
+### Typing
+
+- `Rec` - namespace
+- `rct` - constants
 
 ```tsx
-import { Dom as dom } from "googlers-tools";
+import { rct, Rct } from "googlers-tools";
+
+type AppProps {
+  isMaintainable: boolean;
+}
 
 // Renders the component completely automatically and creating the root element from the display name (Requires React 18+)
-dom.renderAuto(App);
+rct.renderAuto<AppProps>(App, { isMaintainable: true });
+// props are optional
 
 // Renders the component in the pre created <app></app> tag (Requires React 18+)
-dom.render(<App />, "app");
+rct.render(<App />, "app");
 
 // Renders the component in the pre created <app></app> tag
-dom.renderLegacy(<App />, "app");
+rct.renderLegacy(<App />, "app");
 ```
 
-## BSON Usage
+## Rct/rct
+
+`console` wrapper. This feature is experimental!
+
+### Typing
+
+- `Print` - namespace
+- `print` - constants
 
 ```tsx
-import { BSON, Logger, ILogger } from "googlers-tools";
+import { print, Print } from "googlers-tools";
 
-const log: ILogger = new Logger("Encoder");
-
-const content = {
-  lool: "ff",
-  hahah: "cool",
-  version: {
-    app: "1.1.0",
-    lib: "1.0.5",
+// For colors in browsers
+print.styl({
+  text: "Hello, world!",
+  style: {
+    width: "1px",
+    height: "1px",
+    backgroundColor: "red",
+    transform: "rotateZ(45deg)",
   },
+});
+
+// For Node.js
+print.log(self => {
+  return self.format("\x1b[36m{content}\x1b[0m", { content: "Hello world!" });
+});
+
+// Alternative way
+print.log("\x1b[36m{content}\x1b[0m", { content: "Hello world!" });
+
+// Stringify
+const test = {
+  firstName: "John",
+  lastName: "Smith",
+  id: 123,
+  isEnabled: true,
 };
 
-const e = new BSON(content).encode();
-const d = new BSON(e).decode();
-
-log.info(
-  <div>
-    <span>Encoded: {e}</span>
-    <br />
-    <span>Decoded: {d}</span>
-  </div>
-);
+print.info(self => self.stringify(test, null, 4));
 ```
