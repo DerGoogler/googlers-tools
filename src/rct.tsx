@@ -48,7 +48,13 @@ const rct: Rct.Types = {
   renderAuto: function<P = {}>(InitComponent: React.ElementType, props?: P): void {
     const app = document.createElement(InitComponent.constructor.name!);
     document.body.prepend(app);
-    const container = document.querySelector<Element>(InitComponent.constructor.name!);
+    let container;
+    if (InitComponent instanceof React.Component) {
+      container = document.querySelector<Element>(InitComponent.constructor.name!);
+    } else {
+      // @ts-ignore
+      container = document.querySelector<Element>(InitComponent.name!);
+    }
     const root = createRoot(container!);
     root.render(<InitComponent {...props} />);
   },

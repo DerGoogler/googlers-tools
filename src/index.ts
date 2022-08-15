@@ -6,3 +6,4 @@ export * from "./rct";
 export * from "./doc";
 export * from "./print";
 export * from "./styl";
+export * from "./nstyl";

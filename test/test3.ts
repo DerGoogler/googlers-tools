@@ -1,8 +1,6 @@
-import { print, obj, styl, util } from "./../src";
+import { print, styl, util } from "./../src";
 
-print.log(self => {
-  return self.format("\x1b[36m{content}\x1b[0m", { content: "Hello world!" });
-});
 
-// Alternative way
-print.log("\x1b[36m{content}\x1b[0m", { content: "Hello world!" })
+print.log((self, css,ncss)=> {
+  return ncss.custom(3)`Hello World!`
+})

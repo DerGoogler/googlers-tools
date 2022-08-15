@@ -1,5 +1,3 @@
-import { obj } from "./obj";
-
 /**
  * Typing for Util/util
  */
@@ -41,7 +39,6 @@ namespace Util {
      * Marks an class method as deprecated
      */
     deprecated: (deprecationReason: string) => any;
-    format: (value: any, args: any) => any;
     isBoolean: (arg: unknown) => arg is boolean;
     isNull: (arg: unknown) => arg is null;
     isNullOrUndefined: (arg: unknown) => arg is null | undefined;
@@ -152,12 +149,6 @@ const util: Util.Types = {
 
   isPrimitive: (arg: unknown): arg is boolean | null | number | string | symbol | undefined => {
     return arg === null || (typeof arg !== "object" && typeof arg !== "function");
-  },
-  format: (value: any, args: any): any => {
-    obj.keysMap<any>(args)((key, i) => {
-      return (value = value.replace(new RegExp("\\{" + key + "\\}", "gi"), args[key]));
-    });
-    return value;
   },
 } as const;
 

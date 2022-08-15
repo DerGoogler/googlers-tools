@@ -2,6 +2,7 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 import ReactDOM from "react-dom";
 import { Util } from "./util";
+import { print } from "./print";
 
 /**
  * Typing for Dom/dom
@@ -9,7 +10,7 @@ import { Util } from "./util";
 namespace Dom {
   export type EventHandlersMap = Util.Records<GlobalEventHandlersEventMap>;
   export type PreventerArgs = keyof EventHandlersMap | Array<keyof EventHandlersMap>;
-  export interface Types {
+  export type Types = Readonly<{
     /**
      * @param id Given element or ref
      * @param callback HTMLElement or React.RefObject
@@ -25,7 +26,7 @@ namespace Dom {
      * ```
      * @deprecated Use `doc.findId()` or for React `doc.findRef()` instead.
      */
-    readonly findBy: <Object = any>(id: string | React.RefObject<Object>, callback: (...props: any) => void) => Object | HTMLElement | React.RefObject<Object> | undefined;
+    findBy: <Object = any>(id: string | React.RefObject<Object>, callback: (...props: any) => void) => Object | HTMLElement | React.RefObject<Object> | undefined;
     /**
      * @usage
      * ```ts
@@ -36,25 +37,25 @@ namespace Dom {
      * @param permission
      * @returns
      */
-    readonly permission: (permission: string) => Promise<PermissionStatus>;
+    permission: (permission: string) => Promise<PermissionStatus>;
     /**
      * Prevents event listener
      * @param prevent {Array<string>} `["contextmenu", "mousedown"]` or just a string
      */
-    readonly preventer: (prevent: Dom.PreventerArgs) => void;
+    preventer: (prevent: Dom.PreventerArgs) => void;
     /**
      * New React DOM render method. Requires React 18+
      * @param component
      * @param element
      * @deprecated Use `rct.render()` instead.
      */
-    readonly render: (component: React.ReactNode, element: string) => void;
+    render: (component: React.ReactNode, element: string) => void;
     /**
      * React DOM render method to render the DOM and root element automatically. Requires React 18+ and an component with call syntax.
      * @param InitComponent {ComponentClass} Uses the given component to render the DOM and the required HTML root element
      * @deprecated Use `rct.renderAuto()` instead.
      */
-    readonly renderAuto: <P = {}>(InitComponent: React.ElementType, props?: P) => void;
+    renderAuto: <P = {}>(InitComponent: React.ElementType, props?: P) => void;
 
     /**
      * React DOM legacy render method
@@ -63,8 +64,8 @@ namespace Dom {
      * @param callback
      * @deprecated Use `rct.renderLegacy()` instead.
      */
-    readonly renderLegacy: (component: React.DOMElement<React.DOMAttributes<Element>, Element>, element: string, callback?: () => void) => void;
-  }
+    renderLegacy: (component: React.DOMElement<React.DOMAttributes<Element>, Element>, element: string, callback?: () => void) => void;
+  }>;
 }
 
 type dom = typeof dom[keyof typeof dom];
@@ -81,14 +82,18 @@ const dom: Dom.Types = {
         prevent.map(item => {
           window.addEventListener(item, (e: Event) => {
             e.preventDefault();
-            console.info(`${item} is prevented from using`);
+            print.info("{evt} is prevented from using", {
+              evt: item,
+            });
           });
         });
         break;
       case "string":
         window.addEventListener(prevent, (e: Event) => {
           e.preventDefault();
-          console.info(`${prevent} is prevented from using`);
+          print.info("{evt} is prevented from using", {
+            evt: prevent,
+          });
         });
         break;
       default:
