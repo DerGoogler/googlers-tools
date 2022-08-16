@@ -1,3 +1,5 @@
+import { print } from "./print";
+
 /**
  * Typing for Util/util
  */
@@ -49,6 +51,11 @@ namespace Util {
     isObject: (arg: unknown) => arg is NonNullable<object>;
     isFunction: (arg: unknown) => arg is Function;
     isPrimitive: (arg: unknown) => arg is boolean | null | number | string | symbol | undefined;
+    objectToString: (arg: unknown) => any;
+    isDate: (arg: unknown) => arg is Date;
+    isError: (arg: unknown) => arg is Error;
+    isRegExp: (arg: unknown) => arg is RegExp;
+    useCallback: <T extends Function>(callback: T) => T;
   }>;
 }
 
@@ -96,7 +103,10 @@ const util: Util.Types = {
       return {
         get() {
           const wrapperFn = (...args: any[]) => {
-            console.warn(`Method ${memberName} is deprecated with reason: ${deprecationReason}`);
+            print.warn("Method {name} is deprecated with reason: {reason}", {
+              name: memberName,
+              reason: deprecationReason,
+            });
             propertyDescriptor.value.apply(this, args);
           };
 
@@ -110,45 +120,50 @@ const util: Util.Types = {
       };
     };
   },
-
   isBoolean: (arg: unknown): arg is boolean => {
     return typeof arg === "boolean";
   },
-
   isNull: (arg: unknown): arg is null => {
     return arg === null;
   },
-
   isNullOrUndefined: (arg: unknown): arg is null | undefined => {
     return arg === null || arg === undefined;
   },
-
   isNumber: (arg: unknown): arg is number => {
     return typeof arg === "number";
   },
-
   isString: (arg: unknown): arg is string => {
     return typeof arg === "string";
   },
-
   isSymbol: (arg: unknown): arg is symbol => {
     return typeof arg === "symbol";
   },
-
   isUndefined: (arg: unknown): arg is undefined => {
     return arg === undefined;
   },
-
   isObject: (arg: unknown): arg is NonNullable<object> => {
     return arg !== null && typeof arg === "object";
   },
-
   isFunction: (arg: unknown): arg is Function => {
     return typeof arg === "function";
   },
-
   isPrimitive: (arg: unknown): arg is boolean | null | number | string | symbol | undefined => {
     return arg === null || (typeof arg !== "object" && typeof arg !== "function");
+  },
+  objectToString: (arg: unknown): any => {
+    return Object.prototype.toString.call(arg);
+  },
+  isDate: (arg: unknown): arg is Date => {
+    return util.isObject(arg) && util.objectToString(arg) === "[object Date]";
+  },
+  isError: (arg: unknown): arg is Error => {
+    return util.isObject(arg) && (util.objectToString(arg) === "[object Error]" || arg instanceof Error);
+  },
+  isRegExp: (arg: unknown): arg is RegExp => {
+    return util.isObject(arg) && util.objectToString(arg) === "[object RegExp]";
+  },
+  useCallback: <T extends Function>(callback: T): T => {
+    return callback;
   },
 } as const;
 

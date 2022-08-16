@@ -7,3 +7,4 @@ export * from "./doc";
 export * from "./print";
 export * from "./styl";
 export * from "./nstyl";
+export * from "./str";

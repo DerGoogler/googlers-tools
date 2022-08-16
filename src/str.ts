@@ -15,11 +15,13 @@ const str: Str.Types = {
   apply: (arg: any) => {
     return String.apply(null, [arg]);
   },
-  format: (value: any, args: any): any => {
-    obj.keysMap<any>(args)((key, i) => {
-      return (value = value.replace(new RegExp("\\{" + key + "\\}", "gi"), args[key]));
+  format: (text: string, tofor: any): any => {
+    if (tofor.length === 1 && tofor[0] !== null && typeof tofor[0] === "object") {
+      tofor = tofor[0];
+    }
+    return text.replace(/{([^}]*)}/g, function (match, key) {
+      return typeof tofor[key] !== "undefined" ? tofor[key] : match;
     });
-    return value;
   },
 } as const;
 

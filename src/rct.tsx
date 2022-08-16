@@ -8,18 +8,18 @@ import ReactDOM from "react-dom";
 namespace Rct {
   export type SetState<T> = ((newValue: T) => void) | ((prevValue: T) => T);
   export type UseStateArg<T> = T | (() => T);
-  export interface Types {
+  export type Types = Readonly<{
     /**
      * New React DOM render method. Requires React 18+
      * @param component
      * @param element
      */
-    readonly render: (component: React.ReactNode, element: string) => void;
+    render: (component: React.ReactNode, element: string) => void;
     /**
      * React DOM render method to render the DOM and root element automatically. Requires React 18+ and an component with call syntax.
      * @param InitComponent {ComponentClass} Uses the given component to render the DOM and the required HTML root element
      */
-    readonly renderAuto: <P = {}>(InitComponent: React.ElementType, props?: P) => void;
+    renderAuto: <P = {}>(InitComponent: React.ElementType, props?: P) => void;
 
     /**
      * React DOM legacy render method
@@ -27,13 +27,14 @@ namespace Rct {
      * @param element
      * @param callback
      */
-    readonly renderLegacy: (component: React.DOMElement<React.DOMAttributes<Element>, Element>, element: string, callback?: () => void) => void;
+    renderLegacy: (component: React.DOMElement<React.DOMAttributes<Element>, Element>, element: string, callback?: () => void) => void;
+    withAddedProps: <P = {}>(Component: React.ElementType) => (props: P) => JSX.Element;
     /**
      * Custom React state hook
      */
-    readonly useState: <T extends any>(defaultValue: Rct.UseStateArg<T>) => [T, Rct.SetState<T>];
-    readonly useForceRender: () => any;
-  }
+    useState: <T extends any>(defaultValue: Rct.UseStateArg<T>) => [T, Rct.SetState<T>];
+    useForceRender: () => any;
+  }>;
 }
 
 type rct = typeof rct[keyof typeof rct];
@@ -45,7 +46,7 @@ const rct: Rct.Types = {
     const root = createRoot(container!);
     root.render(component);
   },
-  renderAuto: function<P = {}>(InitComponent: React.ElementType, props?: P): void {
+  renderAuto: function <P = {}>(InitComponent: React.ElementType, props?: P): void {
     const app = document.createElement(InitComponent.constructor.name!);
     document.body.prepend(app);
     let container;
@@ -62,8 +63,13 @@ const rct: Rct.Types = {
   renderLegacy: (component: React.DOMElement<React.DOMAttributes<Element>, Element>, element: string, callback?: () => void): void => {
     ReactDOM.render(component, document.querySelector<Element>(element), callback);
   },
+  withAddedProps: function <P = {}>(Component: React.ElementType): (props: P) => JSX.Element {
+    return (props: P) => {
+      return <Component {...props} />;
+    };
+  },
   useForceRender: () => {
-    const [, forceRender] = React.useReducer(x => x + 1, 0);
+    const [, forceRender] = React.useReducer((x) => x + 1, 0);
     return forceRender;
   },
   useState: <T extends any>(defaultValue: Rct.UseStateArg<T>): [T, Rct.SetState<T>] => {
