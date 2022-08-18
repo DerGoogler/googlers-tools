@@ -45,7 +45,7 @@ obj.keysMap<void>((obj.omit<typeof console>("Console", console) as unknown) as P
   print[method as keyof Print.Types] = <T>(message?: Util.PosibleUndefined<Print.Message<T>>, format?: any): void => {
     if (typeof message !== "function") {
       // @ts-ignore
-      console[method as keyof Print.Types].apply(null, [util.format(message, !util.isUndefined(format) ? format : {})]);
+      console[method as keyof Print.Types].apply(null, [str.format(message, !util.isUndefined(format) ? format : {})]);
     } else {
       // @ts-ignore
       console[method as keyof Print.Types].apply(null, [
